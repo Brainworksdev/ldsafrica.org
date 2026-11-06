@@ -1,0 +1,280 @@
+/**
+ * Reusable page components. Each function returns an HTML string.
+ */
+import { site, contact, navigation, languages, whatsappLink, telLink, mailLink } from './content.mjs';
+
+/** Escape text for safe insertion into HTML. */
+export const esc = (s = '') =>
+  String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+/* ------------------------------------------------------------------ Icons */
+
+const ICONS = {
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>',
+  arrow: '<path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>',
+  users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+  monitor: '<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/>',
+  globe: '<circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/>',
+  book: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>',
+  briefcase: '<rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>',
+  cap: '<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/>',
+  languages: '<path d="m5 8 6 6"/><path d="m4 14 6-6 2-3"/><path d="M2 5h12"/><path d="M7 2h1"/><path d="m22 22-5-10-5 10"/><path d="M14 18h6"/>',
+  eye: '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>',
+  target: '<circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',
+  check: '<path d="M20 6 9 17l-5-5"/>',
+  menu: '<path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/>',
+  close: '<path d="M18 6 6 18"/><path d="m6 6 12 12"/>',
+  chat: '<path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>',
+};
+
+const WHATSAPP_PATH =
+  'M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.41-.08-.13-.27-.2-.57-.35m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.31-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.9a11.82 11.82 0 0 0-3.48-8.41Z';
+
+export const icon = (name, cls = 'icon') =>
+  name === 'whatsapp'
+    ? `<svg class="${cls}" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="${WHATSAPP_PATH}"/></svg>`
+    : `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">${ICONS[name]}</svg>`;
+
+/* --------------------------------------------------------------- Images */
+
+const WIDTHS = {
+  'hero-training-room': [600, 900, 1400, 2000],
+  'about-banner': [600, 900, 1400, 2000],
+  default: [500, 800, 1200],
+  lang: [600, 1000],
+};
+
+/**
+ * Responsive WebP image. `img` = { file, width, height, alt, position? }.
+ * Lazy-loads by default; pass { eager: true } for above-the-fold images.
+ */
+export const picture = (img, { sizes = '100vw', eager = false, cls = '' } = {}) => {
+  const widths = WIDTHS[img.file] || (img.file.startsWith('lang-') ? WIDTHS.lang : WIDTHS.default);
+  const srcset = widths.map((w) => `/assets/img/${img.file}-${w}.webp ${w}w`).join(', ');
+  const fallback = `/assets/img/${img.file}-${widths[Math.min(1, widths.length - 1)]}.webp`;
+  const style = img.position ? ` style="object-position:${img.position}"` : '';
+  return `<img${cls ? ` class="${cls}"` : ''} src="${fallback}" srcset="${srcset}" sizes="${sizes}" width="${img.width}" height="${img.height}" alt="${esc(img.alt)}"${style} ${
+    eager ? 'fetchpriority="high" decoding="async"' : 'loading="lazy" decoding="async"'
+  }>`;
+};
+
+/* ----------------------------------------------------------------- Head */
+
+export const head = ({ title, description, path, page, preloadImage }) => {
+  const url = site.url + path;
+  const org = {
+    '@context': 'https://schema.org',
+    '@type': 'EducationalOrganization',
+    name: site.name,
+    alternateName: 'LDSTAR Africa',
+    url: site.url + '/',
+    logo: site.url + '/assets/brand/logo.png',
+    image: site.url + '/assets/brand/og-image.jpg',
+    description: site.description,
+    slogan: site.tagline,
+    telephone: contact.phoneE164,
+    ...(contact.email.confirmed ? { email: contact.email.address } : {}),
+    knowsLanguage: languages.filter((l) => l.greeting).map((l) => l.name),
+    contactPoint: {
+      '@type': 'ContactPoint',
+      telephone: contact.phoneE164,
+      contactType: 'admissions',
+      availableLanguage: ['English', 'Kiswahili'],
+    },
+  };
+  const webpage = {
+    '@context': 'https://schema.org',
+    '@type': page === 'about' ? 'AboutPage' : 'WebPage',
+    name: title,
+    url,
+    description,
+    isPartOf: { '@type': 'WebSite', name: site.name, url: site.url + '/' },
+  };
+  const preload = preloadImage
+    ? `<link rel="preload" as="image" type="image/webp" imagesrcset="/assets/img/${preloadImage}-600.webp 600w, /assets/img/${preloadImage}-900.webp 900w, /assets/img/${preloadImage}-1400.webp 1400w, /assets/img/${preloadImage}-2000.webp 2000w" imagesizes="100vw" fetchpriority="high">`
+    : '';
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>${esc(title)}</title>
+<meta name="description" content="${esc(description)}">
+<link rel="canonical" href="${url}">
+<meta name="theme-color" content="#10377F">
+<meta name="robots" content="index, follow">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="${esc(site.name)}">
+<meta property="og:title" content="${esc(title)}">
+<meta property="og:description" content="${esc(description)}">
+<meta property="og:url" content="${url}">
+<meta property="og:image" content="${site.url}/assets/brand/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(site.name)} logo">
+<meta property="og:locale" content="${site.locale}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(title)}">
+<meta name="twitter:description" content="${esc(description)}">
+<meta name="twitter:image" content="${site.url}/assets/brand/og-image.jpg">
+
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@600;700;800&display=swap">
+${preload}
+<link rel="stylesheet" href="/assets/css/styles.css">
+<script src="/assets/js/main.js" defer></script>
+<script type="application/ld+json">${JSON.stringify(org)}</script>
+<script type="application/ld+json">${JSON.stringify(webpage)}</script>
+</head>`;
+};
+
+/* --------------------------------------------------------------- Header */
+
+export const header = (page) => {
+  const links = navigation
+    .map((n) => {
+      const current = n.page === page ? ' aria-current="page"' : '';
+      return `<li><a class="nav__link" href="${n.href}"${current}>${esc(n.label)}</a></li>`;
+    })
+    .join('');
+  return `<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="brand" href="/" aria-label="${esc(site.name)} — home">
+      <img src="/assets/brand/logo.png" alt="${esc(site.name)}" width="640" height="329">
+    </a>
+    <nav class="nav" id="site-nav" aria-label="Main navigation" data-nav>
+      <ul class="nav__list">${links}</ul>
+      <div class="nav__mobile-contact">
+        <a class="btn btn--gold btn--block" href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp')}WhatsApp Us</a>
+        <a class="btn btn--outline btn--block" href="${telLink()}">${icon('phone')}${esc(contact.phoneDisplay)}</a>
+      </div>
+    </nav>
+    <a class="btn btn--gold btn--sm site-header__cta" href="#contact">Enquire Now</a>
+    <button class="nav-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu" data-nav-toggle>
+      <span class="nav-toggle__open">${icon('menu')}</span><span class="nav-toggle__close">${icon('close')}</span>
+    </button>
+  </div>
+</header>`;
+};
+
+/* -------------------------------------------------------- Shared blocks */
+
+/** Small uppercase label above section headings. */
+export const eyebrow = (text, light = false) => `<p class="eyebrow${light ? ' eyebrow--light' : ''}">${esc(text)}</p>`;
+
+/** Vision & Mission panels (used on both pages). */
+export const visionMission = ({ id = 'vision-mission', heading = 'Our Vision &amp; Mission', intro = '' } = {}) => `
+<section class="section vm" id="${id}" aria-labelledby="${id}-title">
+  <div class="container">
+    <div class="section-head section-head--center" data-reveal>
+      ${eyebrow('What guides us', true)}
+      <h2 class="section-title section-title--light" id="${id}-title">${heading}</h2>
+      ${intro ? `<p class="section-lead section-lead--light">${intro}</p>` : ''}
+    </div>
+    <div class="vm__grid">
+      <article class="vm__panel" data-reveal>
+        <div class="vm__icon">${icon('eye')}</div>
+        <h3 class="vm__label">Vision</h3>
+        <p class="vm__statement">${esc(site.vision)}</p>
+      </article>
+      <article class="vm__panel" data-reveal>
+        <div class="vm__icon">${icon('target')}</div>
+        <h3 class="vm__label">Mission</h3>
+        <p class="vm__statement">${esc(site.mission)}</p>
+      </article>
+    </div>
+  </div>
+</section>`;
+
+/** Contact option tiles: call, WhatsApp, email. */
+export const contactOptions = () => `
+<ul class="contact-options" role="list">
+  <li>
+    <a class="contact-option" href="${telLink()}">
+      <span class="contact-option__icon">${icon('phone')}</span>
+      <span class="contact-option__body"><span class="contact-option__label">Call Us</span><span class="contact-option__value">${esc(contact.phoneDisplay)}</span></span>
+      ${icon('arrow', 'icon contact-option__arrow')}
+    </a>
+  </li>
+  <li>
+    <a class="contact-option contact-option--whatsapp" href="${whatsappLink()}" target="_blank" rel="noopener">
+      <span class="contact-option__icon">${icon('whatsapp')}</span>
+      <span class="contact-option__body"><span class="contact-option__label">WhatsApp Us</span><span class="contact-option__value">${esc(contact.phoneDisplay)}</span></span>
+      ${icon('arrow', 'icon contact-option__arrow')}
+    </a>
+  </li>
+  <li>
+    <a class="contact-option" href="${mailLink()}"${contact.email.confirmed ? '' : ' data-email-placeholder'}>
+      <span class="contact-option__icon">${icon('mail')}</span>
+      <span class="contact-option__body"><span class="contact-option__label">Send an Email</span><span class="contact-option__value">${esc(contact.email.address)}</span></span>
+      ${icon('arrow', 'icon contact-option__arrow')}
+    </a>
+  </li>
+</ul>`;
+
+/** Closing call-to-action band with contact options. */
+export const contactSection = ({ title, text }) => `
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="container contact__inner">
+    <div class="contact__text" data-reveal>
+      ${eyebrow('Contact us')}
+      <h2 class="section-title" id="contact-title">${esc(title)}</h2>
+      <p class="section-lead">${esc(text)}</p>
+      <p class="contact__modes">${icon('users')} Physical training <span aria-hidden="true">·</span> ${icon('monitor')} Online learning</p>
+    </div>
+    <div class="contact__actions" data-reveal>
+      ${contactOptions()}
+    </div>
+  </div>
+</section>`;
+
+/* --------------------------------------------------------------- Footer */
+
+export const footer = () => {
+  const year = new Date().getFullYear();
+  const quick = navigation
+    .map((n) => `<li><a href="${n.href === '#contact' ? '#contact' : n.href}">${esc(n.label)}</a></li>`)
+    .join('');
+  const langs = languages.map((l) => `<li><a href="/about/#${l.slug}">${esc(l.name)}</a></li>`).join('');
+  return `
+<footer class="site-footer">
+  <div class="container site-footer__grid">
+    <div class="site-footer__brand">
+      <img src="/assets/brand/logo-light.png" alt="${esc(site.name)}" width="640" height="329" loading="lazy">
+      <p>Language training for professionals, academics and individuals — connecting Africa to the world through local, African and international languages.</p>
+    </div>
+    <nav class="site-footer__col" aria-label="Footer navigation">
+      <h2 class="site-footer__title">Quick links</h2>
+      <ul role="list">${quick}</ul>
+    </nav>
+    <div class="site-footer__col">
+      <h2 class="site-footer__title">Languages</h2>
+      <ul role="list" class="site-footer__langs">${langs}</ul>
+    </div>
+    <div class="site-footer__col">
+      <h2 class="site-footer__title">Get in touch</h2>
+      <ul role="list" class="site-footer__contact">
+        <li><a href="${telLink()}">${icon('phone')}${esc(contact.phoneDisplay)}</a></li>
+        <li><a href="${whatsappLink()}" target="_blank" rel="noopener">${icon('whatsapp')}WhatsApp</a></li>
+        <li><a href="${mailLink()}">${icon('mail')}<span class="break">${esc(contact.email.address)}</span></a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container site-footer__bottom">
+    <p>&copy; <span data-year>${year}</span> ${esc(site.name)}. All rights reserved.</p>
+    <p>Learning modes: Physical &amp; Online</p>
+  </div>
+</footer>
+<a class="wa-float" href="${whatsappLink()}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">${icon('whatsapp')}</a>
+</body>
+</html>`;
+};
