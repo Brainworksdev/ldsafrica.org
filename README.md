@@ -78,13 +78,15 @@ The site is plain static HTML, so any static host works. **Deploy the `dist/` fo
 - **Netlify / Cloudflare Pages / Vercel:** build command `npm run build`, output directory `dist`.
 - **GitHub Pages:** publish `dist/` with a Pages workflow, or push `dist/` to a `gh-pages` branch.
 
-`dist/404.html` is used automatically by most hosts. On Apache, add `ErrorDocument 404 /404.html` to `.htaccess`.
+`dist/.htaccess` (Apache) sets the 404 page, compression, caching and a www → bare-domain redirect. Other hosts ignore it.
 
 ### Before launch checklist
 
 1. **Email address:** set `contact.email.address` in `src/content.mjs` and change `confirmed` to `true`. While it is `false`, the build prints a warning and the email is left out of the structured data.
-2. **Domain:** confirm `site.url` (currently `https://ldsafrica.org`). Canonical URLs, the sitemap and social previews use it.
-3. Rebuild with `npm run build`, then redeploy.
+2. **HTTPS:** the domain is `ldsafrica.org`, which currently serves only HTTP. Install an SSL certificate (cPanel → SSL/TLS Status → Run AutoSSL). Then:
+   - change `site.url` in `src/content.mjs` to `https://ldsafrica.org`;
+   - uncomment the HTTPS redirect in `public/.htaccess` and change the www rule to `https`.
+3. Rebuild with `npm run build`, then upload the contents of `dist/` to `public_html/`. Include the hidden `.htaccess` file.
 4. Submit `https://<domain>/sitemap.xml` in Google Search Console.
 
 ## Contact options and forms

@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ldsafrica.org/sitemap.xml
+Sitemap: http://ldsafrica.org/sitemap.xml

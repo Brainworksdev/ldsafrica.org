@@ -10,8 +10,7 @@
 export const site = {
   name: 'LDSTAR Africa Language Centre',
   shortName: 'LDSTAR Africa',
-  // TODO(confirm): production domain. Used for canonical URLs, sitemap and social previews.
-  url: 'https://ldsafrica.org',
+  url: 'http://ldsafrica.org', // switch to https:// once SSL is active (see README)
   locale: 'en_KE',
   tagline: 'Connecting Africa to the World Through Language.',
   description:
