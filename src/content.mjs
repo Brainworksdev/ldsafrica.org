@@ -24,9 +24,8 @@ export const contact = {
   phoneE164: '+254107105407',
   whatsappNumber: '254107105407',
   email: {
-    // TODO(confirm): replace with the official address and set confirmed: true.
-    address: 'Ldstarafrica@[CONFIRM DOMAIN].ac.ke',
-    confirmed: false,
+    address: 'admin@ldsafrica.org',
+    confirmed: true,
   },
   defaultEnquiry: 'Hello LDSTAR Africa Language Centre, I would like to enquire about your language training.',
 };

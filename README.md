@@ -108,7 +108,7 @@ These are Vercel's standard values. If the Domains page in Vercel shows differen
 
 ### Before launch checklist
 
-1. **Email address:** set `contact.email.address` in `src/content.mjs` and change `confirmed` to `true`. While it is `false`, the build prints a warning and the email is left out of the structured data.
+1. **Email address:** `admin@ldsafrica.org` (set in `contact.email` in `src/content.mjs`). The domain uses Vercel DNS, so the mail (MX) records must be added in Vercel for this mailbox to receive email.
 2. **Domain check:** confirm that `https://ldsafrica.org` loads with a padlock and that `www.ldsafrica.org` redirects to it.
 3. **Search Console:** submit `https://ldsafrica.org/sitemap.xml` in Google Search Console.
 
