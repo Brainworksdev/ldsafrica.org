@@ -20,9 +20,9 @@ export const site = {
 };
 
 export const contact = {
-  phoneDisplay: '+254 107 105 407',
-  phoneE164: '+254107105407',
-  whatsappNumber: '254107105407',
+  phoneDisplay: '+254 714 856 140',
+  phoneE164: '+254714856140',
+  whatsappNumber: '254714856140',
   email: {
     address: 'admin@ldsafrica.org',
     confirmed: true,
