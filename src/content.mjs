@@ -64,7 +64,7 @@ export const languages = [
     summary: 'Build the confidence to communicate clearly in a language of international business, diplomacy and scholarship.',
     detail:
       'English is used widely in international business, diplomacy, science and higher education. Strong English communication supports professional writing, presentations, research and collaboration with colleagues around the world.',
-    image: { file: 'lang-english', width: 1000, height: 667, alt: 'Big Ben and the Palace of Westminster in London under a bright sky' },
+    image: { file: 'lang-english', width: 900, height: 600, alt: 'Big Ben and the Palace of Westminster in London under a bright sky' },
   },
   {
     slug: 'kiswahili',
@@ -73,7 +73,7 @@ export const languages = [
     summary: 'Communicate in one of Africa’s most widely spoken languages, at the heart of East African life and work.',
     detail:
       'Kiswahili is spoken by millions of people across East and Central Africa and is a working language of the African Union. Learning Kiswahili supports regional engagement, community work, cultural understanding and professional life across the region.',
-    image: { file: 'lang-kiswahili', width: 1000, height: 667, alt: 'Mount Kilimanjaro rising above the East African landscape' },
+    image: { file: 'lang-kiswahili', width: 900, height: 600, alt: 'Mount Kilimanjaro rising above the East African landscape' },
   },
   {
     slug: 'african-languages',
@@ -82,7 +82,7 @@ export const languages = [
     summary: 'Engage with the continent’s rich linguistic heritage. Contact us to enquire about the African languages available.',
     detail:
       'Africa is home to a remarkable diversity of languages that carry history, identity and culture. Learning an African language deepens understanding of communities and opens new possibilities for research, development work and cultural exchange. Please contact us to enquire about the African languages currently available.',
-    image: { file: 'lang-african', width: 1000, height: 667, alt: 'Close-up of hands weaving brightly coloured African textile on a loom' },
+    image: { file: 'lang-african', width: 900, height: 600, alt: 'Close-up of hands weaving brightly coloured African textile on a loom' },
   },
   {
     slug: 'german',
@@ -91,7 +91,7 @@ export const languages = [
     summary: 'Open pathways to study, research and professional opportunities in German-speaking countries.',
     detail:
       'German is one of the most widely spoken languages in Europe and is closely associated with engineering, research, higher education and international trade. German language skills can support academic exchange, professional mobility and collaboration with German-speaking institutions.',
-    image: { file: 'lang-german', width: 1000, height: 830, alt: 'The Brandenburg Gate in Berlin at dusk' },
+    image: { file: 'lang-german', width: 900, height: 747, alt: 'The Brandenburg Gate in Berlin at dusk' },
   },
   {
     slug: 'spanish',
@@ -100,7 +100,7 @@ export const languages = [
     summary: 'Connect with a global community of speakers across Europe, the Americas and Equatorial Guinea in Africa.',
     detail:
       'Spanish is spoken across Spain, Latin America and Equatorial Guinea, and is one of the most widely spoken languages in the world. It is valuable for international relations, tourism, trade and cultural exchange.',
-    image: { file: 'lang-spanish', width: 1000, height: 667, alt: 'The Metropolis building on Gran Vía in Madrid under a clear blue sky', position: '28% center' },
+    image: { file: 'lang-spanish', width: 900, height: 600, alt: 'The Metropolis building on Gran Vía in Madrid under a clear blue sky', position: '28% center' },
   },
   {
     slug: 'french',
@@ -109,7 +109,7 @@ export const languages = [
     summary: 'Communicate across the many African countries where French is widely spoken, and beyond.',
     detail:
       'French is widely spoken across West, Central and North Africa and is a working language of many international organisations. French language skills support regional collaboration, diplomacy, international development and academic exchange.',
-    image: { file: 'lang-french', width: 1000, height: 1000, alt: 'A Paris street lined with trees, with the Eiffel Tower in the distance', position: 'center 35%' },
+    image: { file: 'lang-french', width: 900, height: 675, alt: 'A Paris street lined with trees, with the Eiffel Tower in the distance' },
   },
   {
     slug: 'chinese',
@@ -118,7 +118,7 @@ export const languages = [
     summary: 'Gain language skills that support trade, investment and cultural exchange between Africa and China.',
     detail:
       'Chinese is one of the world’s most widely spoken languages. With growing trade, investment and educational links between Africa and China, Chinese language skills are increasingly relevant for professionals, students and businesses.',
-    image: { file: 'lang-chinese', width: 1000, height: 630, alt: 'The Great Wall of China winding across mountain ridges' },
+    image: { file: 'lang-chinese', width: 900, height: 567, alt: 'The Great Wall of China winding across mountain ridges' },
   },
 ];
 

@@ -3,7 +3,8 @@ import { head, header, footer, picture, icon, eyebrow, esc, visionMission, conta
 
 const programmeCard = (l) => `
 <article class="programme" id="${l.slug}" data-reveal>
-  <div class="programme__media">${picture(l.image, { sizes: '(min-width: 1100px) 260px, (min-width: 700px) 40vw, 100vw' })}</div>
+  <!-- sizes: on phones the image is full width, but "50vw" caps downloads at ~2x density (sharp, far lighter than 3x) -->
+  <div class="programme__media">${picture(l.image, { sizes: '(min-width: 1100px) 232px, (min-width: 700px) 40vw, 50vw' })}</div>
   <div class="programme__body">
     <h3 class="programme__name">${esc(l.name)}${l.greeting ? ` <span class="programme__greeting" lang="${l.greeting.lang}">${esc(l.greeting.text)}</span>` : ''}</h3>
     <p>${esc(l.detail)}</p>
