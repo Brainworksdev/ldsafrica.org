@@ -10,7 +10,7 @@
 export const site = {
   name: 'LDSTAR Africa Language Centre',
   shortName: 'LDSTAR Africa',
-  url: 'http://ldsafrica.org', // switch to https:// once SSL is active (see README)
+  url: 'https://ldsafrica.org',
   locale: 'en_KE',
   tagline: 'Connecting Africa to the World Through Language.',
   description:
